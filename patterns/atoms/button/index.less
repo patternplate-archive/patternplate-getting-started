@@ -1,0 +1,17 @@
+.button {
+	background: transparent;
+	border: 1px solid currentColor;
+	border-radius: none;
+	padding: 10px 15px;
+	font-size: 16px;
+	color: #999;
+	transition: .3s color ease-in-out, .45s box-shadow linear;
+	&:hover,
+	&:active {
+		color: #42a5f5;
+	}
+	&:focus {
+		box-shadow: 0 0 4px currentColor inset;
+		outline: none;
+	}
+}

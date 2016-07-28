@@ -1,0 +1,10 @@
+{
+	"name": "patternplate-getting-started",
+	"version": "1.0.0",
+  "scripts": {
+    "start": "patternplate"
+  },
+  "dependencies": {
+    "patternplate": "0.17.0"
+  }
+}

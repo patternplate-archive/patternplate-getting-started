@@ -1,0 +1,8 @@
+{
+	"name": "button-row",
+	"displayName": "Button Row",
+	"version": "1.0.0",
+	"patterns": {
+		"button": "atoms/button"
+	}
+}
