@@ -1,6 +1,5 @@
-# Getting started with patternplate
-## Pattern Development
-
+# pattern-init
+## Getting started
 patternplate is a platform for the pattern-driven development of component libraries.
 This sounds daunting but actually is pretty easy. Just follow the steps below and
 you'll be churning out components in a breeze. See [sinnerschrader/patternplate-getting-started](https://github.com/sinnerschrader/patternplate-getting-started)
@@ -12,7 +11,9 @@ for the complete sources created during this tutorial.
 * [Introducing interactive demos](#introducing-interactive-demos) - Learn about demo files and javascript
 * [Moving your pattern](#moving-your-pattern) - Folder structure and navigation
 * [Using patterns](#using-patterns) - Dependencies and composition of patterns
-* [sinnerschrader/patternplate](https://github.com/sinnerschrader/patternplate) for more information and documentation
+
+---
+[sinnerschrader/patternplate](https://github.com/sinnerschrader/patternplate) for more information and documentation
 
 ### Getting started
 #### Step by step
@@ -31,9 +32,9 @@ and place the following inside:
 
 ```json
 {
-	"name": "button",
-	"displayName": "Button",
-	"version": "1.0.0"
+  "name": "button",
+  "displayName": "Button",
+  "version": "1.0.0"
 }
 ```
 
@@ -65,7 +66,7 @@ entry, but nothing much else. Let's create very basic markup for our button:
 
 ```js
 // patterns/button/index.jsx
-const children = props.children || 'Button';
+var children = this.props.children || 'Button';
 
 <button className="button">
 	{children}
@@ -134,42 +135,38 @@ We'll add some javascript into the mix. This time there are two files to add:
 ```js
 // patterns/button/index.js
 function clickHandler(times) {
-	return ({target}) => {
+	return function(e) {
 		times++;
 		const time = times < 2 ? 'time' : 'times';
-		const old = target.textContent;
-		target.textContent = `Clicked \${times} \${time}`;
+		const old = e.target.textContent;
+		e.target.textContent = ['Clicked', times, time].join(' ');
 
-		if (target.running) {
+		if (e.target.running) {
 			return;
 		}
 
-		target.running = true;
+		e.target.running = true;
 
-		setTimeout(() => {
-			target.textContent = old;
-			target.running = false;
+		setTimeout(function () {
+			e.target.textContent = old;
+			e.target.running = false;
 		}, 2000);
 	};
 }
 
 function main() {
 	const buttonElement = document.querySelector('.button');
-	if (!buttonElement) {
-		return;
-	}
-	
 	buttonElement.addEventListener('click', clickHandler(0));
 }
 
-export default main;
+module.exports = main;
 ```
 
 ```js
 // patterns/button/demo.js
 
-import pattern from 'Pattern'; // import default export of index.js
-pattern(); // pattern === main => true
+var button = require('Pattern'); // import default export of index.js
+button();
 ```
 
 Reload the button demo and click it. It counts the times you clicked and
@@ -186,19 +183,19 @@ idea is to have the flexibility of adding code that never is shipped with the
 pattern library but used only for presentational purposes.
 This e.g. comes in handy when you want to display variants of a pattern.
 
-*   When a `demo` file is present, patternplate will ignore `demo`
-files of the same format, so we have to import their contents under the special name `Pattern` it like this:
+*   When a `demo` file is present, patternplate will ignore `index`
+files of the same format, so we have to import their contents under the special name `Pattern`, like this:
 
 ```jsx
 // demo.jsx
-import Pattern from 'Pattern';
+var Pattern = require('Pattern');
 
 <Pattern />
 ```
 
 ```js
 // demo.js
-import pattern from 'Pattern';
+var pattern = require('Pattern');
 pattern();
 ```
 
@@ -246,18 +243,18 @@ mkdir -p patterns/molecules/button-row
 ```js
 // patterns/molecules/button-row/pattern.json
 {
-	"name": "button-row",
-	"displayName": "Button Row",
-	"version": "1.0.0",
-	"patterns": {
-		"button": "atoms/button"
-	}
+  "name": "button-row",
+  "displayName": "Button Row",
+  "version": "1.0.0",
+  "patterns": {
+    "button": "atoms/button"
+  }
 }
 ```
 
 ```js
 // patterns/molecules/button-row/index.jsx
-import Button from 'button'; // include patterns/atoms/button/index.jsx
+var Button = require('button'); // include patterns/atoms/button/index.jsx
 
 <div className="button-row">
 	<Button className="button-row__button">First</Button>
@@ -282,9 +279,12 @@ Load [molecules/button-row](/pattern/molecules/button-row): Profit!
 *  By adding the `patterns` key to `patterns/molecules/button-row/pattern.json`, we told patternplate to
 make the sources of `patterns/atoms/button` available to `button-row`
 
-*  This works by specifying a local name and the referenced pattern id. The importing pattern's sources
-call the dependency by the local name. The imported pattern id is always the normalized path relative to the pattern root, e.g.
-for `patterns/atoms/button` it is `atoms/button`.
+*  This works by specifying a local name and the referenced pattern id.
+
+* The importing pattern's sources call the dependency by the local name.
+
+* The imported pattern id is always the normalized path relative to the
+pattern root, e.g. for `patterns/atoms/button` it is `atoms/button`.
 
 ```js
 {
@@ -295,5 +295,12 @@ for `patterns/atoms/button` it is `atoms/button`.
 }
 ```
 
-*  To actually use the dependency we have to import it into each format. Notice how we imported the `jsx` and `less` sources but omitted the  javascript imports?
-This leads to the markup and styling in place, but the click counters are not active on buttons in [molecules/button-row](/pattern/molecules/button-row).
+*  To actually use the dependency we have to import it into each format.
+
+```js
+var Button = require('button');
+```
+
+*  Notice how we imported the `jsx` and `less` sources but omitted the js
+imports? This leads to the markup and styling in place, but the click counters
+are not active on buttons in [molecules/button-row](/pattern/molecules/button-row).
