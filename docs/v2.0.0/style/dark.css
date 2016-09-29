@@ -368,6 +368,21 @@ textarea {
   font: inherit;
   /* 2 */
 }
+/* latin */
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'), local('Roboto-Regular'), url(/static/fonts/roboto-v15/roboto-v15-normal.woff2) format('woff2'), url(/static/fonts/roboto-v15/roboto-v15-normal.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'), url(/static/fonts/roboto-v15/roboto-v15-bold.woff2) format('woff2'), url(/static/fonts/roboto-v15/roboto-v15-bold.woff) format('woff');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
 * {
   box-sizing: border-box;
 }
@@ -476,6 +491,7 @@ hue-6-2: #e6c07b
   color: #e6c07b;
 }
 
+.hljs-attr,
 .hljs-variable,
 .hljs-template-variable,
 .hljs-type,
@@ -693,16 +709,6 @@ hue-6-2: #e6c07b
 .markdown input {
   overflow: visible;
 }
-.markdown-body button:-moz-focusring,
-.markdown-body [type="button"]:-moz-focusring,
-.markdown-body [type="reset"]:-moz-focusring,
-.markdown-body [type="submit"]:-moz-focusring,
-.markdown button:-moz-focusring,
-.markdown [type="button"]:-moz-focusring,
-.markdown [type="reset"]:-moz-focusring,
-.markdown [type="submit"]:-moz-focusring {
-  outline: 1px dotted ButtonText;
-}
 .markdown-body [type="checkbox"],
 .markdown [type="checkbox"] {
   box-sizing: border-box;
@@ -865,10 +871,6 @@ hue-6-2: #e6c07b
 .markdown input {
   -webkit-font-feature-settings: "liga" 0;
   font-feature-settings: "liga" 0;
-}
-.markdown-body .form-select::-ms-expand,
-.markdown .form-select::-ms-expand {
-  opacity: 0;
 }
 .markdown-body::before,
 .markdown::before {
@@ -1095,8 +1097,6 @@ hue-6-2: #e6c07b
   display: block;
   width: 100%;
   overflow: auto;
-  word-break: normal;
-  word-break: keep-all;
 }
 .markdown-body table th,
 .markdown table th {
@@ -1717,6 +1717,7 @@ hue-6-2: #e6c07b
           flex: 1;
   max-height: 100vh;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 .application-container--home {
   padding: 15px;
