@@ -1,3 +1,5 @@
+const test = require('./test');
+
 // patterns/button/index.js
 function clickHandler(times) {
     return function(e) {
