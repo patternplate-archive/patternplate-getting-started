@@ -17,7 +17,7 @@
   "devDependencies": {
     "babel-preset-es2015": "6.18.0",
     "babel-preset-react": "6.24.1",
-    "patternplate": "1.1.1",
+    "patternplate": "1.6.0",
     "patternplate-transform-browserify": "1.1.7",
     "patternplate-transform-less": "2.0.2",
     "patternplate-transform-react": "1.1.2",
