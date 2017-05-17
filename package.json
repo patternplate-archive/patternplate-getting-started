@@ -22,7 +22,7 @@
     "patternplate-transform-less": "2.0.2",
     "patternplate-transform-react": "1.1.2",
     "patternplate-transform-react-mount": "1.0.0",
-    "patternplate-transform-react-to-markup": "1.0.2",
+    "patternplate-transform-react-to-markup": "1.1.0",
     "patternplate-transform-resolve-imports": "^0.1.1",
     "patternplate-transform-resolve-includes": "^0.1.4"
   },
